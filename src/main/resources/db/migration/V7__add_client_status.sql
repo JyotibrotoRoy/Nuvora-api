@@ -1,0 +1,6 @@
+ALTER TABLE clients
+ADD COLUMN status VARCHAR(30) NOT NULL DEFAULT 'ACTIVE';
+
+ALTER TABLE clients
+ADD CONSTRAINT chk_clients_status
+CHECK ( status IN ('ACTIVE', 'INACTIVE', 'REJECTED') );
