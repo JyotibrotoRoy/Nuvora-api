@@ -50,9 +50,9 @@ public class Client {
     @Column(length = 100)
     private String country;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", updatable = false)
     private Instant created_at;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private Instant updated_at;
 }
