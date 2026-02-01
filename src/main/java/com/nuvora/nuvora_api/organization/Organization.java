@@ -1,10 +1,7 @@
 package com.nuvora.nuvora_api.organization;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -15,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "organizations")
+@Builder
 public class Organization {
 
     @Id
@@ -35,4 +33,15 @@ public class Organization {
 
     @Column(name = "updated_at")
     private Instant updated_at;
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = Instant.now();
+        updated_at = Instant.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = Instant.now();
+    }
 }

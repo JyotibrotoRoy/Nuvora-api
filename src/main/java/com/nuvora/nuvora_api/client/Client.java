@@ -36,13 +36,13 @@ public class Client {
     private String name;
 
     @Column(name = "contact_person_name", length = 150)
-    private String contact_person_name;
+    private String contactPersonName;
 
     @Column(length = 200)
     private String email;
 
     @Column(name = "phone_number", length = 30)
-    private String phone_number;
+    private String phoneNumber;
 
     @Column(length = 100)
     private String city;
@@ -50,9 +50,24 @@ public class Client {
     @Column(length = 100)
     private String country;
 
+    @Column(length = 30)
+    private String status = "ACTIVE";
+
     @Column(name = "created_at", updatable = false)
-    private Instant created_at;
+    private Instant createdAt;
 
     @Column(name = "updated_at")
-    private Instant updated_at;
+    private Instant updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+        if(this.status == null) this.status = "ACTIVE";
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Instant.now();
+    }
 }

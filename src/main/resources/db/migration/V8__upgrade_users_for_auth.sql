@@ -2,6 +2,9 @@ ALTER TABLE users
 RENAME COLUMN password TO password_hash;
 
 ALTER TABLE users
+ALTER COLUMN password_hash DROP NOT NULL;
+
+ALTER TABLE users
 ADD COLUMN auth_provider VARCHAR(20) NOT NULL
 DEFAULT 'LOCAL';
 
@@ -10,7 +13,7 @@ ADD COLUMN client_id UUID;
 
 ALTER TABLE users
 ADD CONSTRAINT chk_users_role
-CHECK ( auth_provider IN ('OWNER', 'EMPLOYEE', 'CLIENT') );
+CHECK ( role IN ('OWNER', 'EMPLOYEE', 'CLIENT', 'FREELANCER') );
 
 ALTER TABLE users
 ADD CONSTRAINT chk_users_auth_provider
